@@ -3,8 +3,8 @@ const {
   installConfig,
   apiBaseConfig,
   apiConfig,
-} = require("config/config");
-const { baseConfig } = require("data/config");
+} = require("./config/config");
+const { baseConfig } = require("./data/config");
 
 // 初始化配置项
 const { port, DelayTime, key } = baseConfig;
@@ -13,11 +13,11 @@ const { static } = apiBaseConfig;
 const { UPDATE, DELETE, GET_IMAGE, GET_LIST, GET_INFO, GET_WEBINFO } = apiConfig;
 
 // 导入模块
-const { logger } = require("model/log4js"); // 日志模块
-const { eventBus } = require("model/eventBus"); // 事件总线
-const { startUpdateJob } = require("model/cron"); // 定时任务
-const { install } = require("model/install"); // 初始化数据库
-const { upgrade } = require("model/upgrade"); // 程序升级
+const { logger } = require("./model/log4js"); // 日志模块
+const { eventBus } = require("./model/eventBus"); // 事件总线
+const { startUpdateJob } = require("./model/cron"); // 定时任务
+const { install } = require("./model/install"); // 初始化数据库
+const { upgrade } = require("./model/upgrade"); // 程序升级
 
 // 原生模块
 const childProcess = require("child_process");
@@ -28,9 +28,9 @@ const dayjs = require("dayjs");
 const cors = require("cors");
 
 // 导入api
-const { getList } = require("api/getList");
-const { getInfo } = require("api/getInfo");
-const { getWebInfo } = require("api/getWebInfo");
+const { getList } = require("./api/getList");
+const { getInfo } = require("./api/getInfo");
+const { getWebInfo } = require("./api/getWebInfo");
 
 // 使用express框架
 const express = require("express");
@@ -39,12 +39,12 @@ const app = new express();
 // ------ 逻辑代码 start------
 // 用子进程更新图片
 const updateBingByChildProcess = function () {
-  childProcess.fork("model/update.js");
+  childProcess.fork("./model/update.js");
 };
 
 // 用子进程清理图片
 const deleteBingByChildProcess = function () {
-  childProcess.fork("model/delete.js");
+  childProcess.fork("./model/delete.js");
 };
 
 // 定时任务

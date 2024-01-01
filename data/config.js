@@ -12,11 +12,11 @@ const baseConfig = {
 
 // 数据库配置 (注意：除数据库连接池大小外，以下配置项提及的内容需在安装前准备好并填入)
 const databaseConfig = {
-  host: "mysql-literature.aivencloud.com", // 数据库链接地址
-  port: "27311", // 数据库连接端口
-  database: "bing_serve", // 数据库名
-  user: "avnadmin", // 数据库用户名
-  password: "AVNS_JBVL9zAmJBlqHSGZETf", // 数据库密码
+  host: "6yb.h.filess.io", // 数据库链接地址
+  port: "3306", // 数据库连接端口
+  database: "666_eatenabove", // 数据库名
+  user: "666_eatenabove", // 数据库用户名
+  password: "8938eb9b61feb757b00be169f001c02a6a6fa2b2", // 数据库密码
   connectionLimit: 100, // 数据库连接池大小
 };
 
