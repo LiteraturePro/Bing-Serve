@@ -7,4 +7,4 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shangh
 COPY * ./
 RUN npm install pnpm -g && pnpm install -P
 EXPOSE 8080
-CMD [ "node", "index.js" ]
+CMD [ "node", "/usr/src/app/index.js" ]
