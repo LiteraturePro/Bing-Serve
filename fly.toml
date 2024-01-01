@@ -1,6 +1,11 @@
 app = "ioi"
 primary_region = "hkg"
 
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
+
 [http_service]
   internal_port = 3000
   force_https = true
@@ -27,7 +32,4 @@ primary_region = "hkg"
     restart_limit = 0
     timeout = "2s"
 
-[[vm]]
-  cpu_kind = "shared"
-  cpus = 1
-  memory_mb = 256
+
