@@ -1,5 +1,12 @@
 app = "ioi"
 primary_region = "hkg"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+
+[build]
+  dockerfile = "Dockerfile.test"
 
 [[vm]]
   cpu_kind = "shared"
