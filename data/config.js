@@ -5,18 +5,18 @@ const baseConfig = {
   port: 3000, // 服务启动端口号
   updateTime: "00:01:00", // 每天更新时间 (开始从必应官方服务器下载图片的时间)
   DelayTime: 5, // 延迟时间（分钟） 即每天00:05：00的时候才显示当天的图片。性能较差的实例应适当调大此值 (仅针对'/api/getImage'接口)
-  surviveDays: 90, // 图片存活天数（即图片保存多少天，到期即清理） 0为不清理
+  surviveDays: 2, // 图片存活天数（即图片保存多少天，到期即清理） 0为不清理
   retryTimeout: 10000, // 错误重试间隔。共重试10次，每次间隔时间递增，这里指的是首次间隔时间 (单位:ms)
-  key: 'abcdefgh', // 鉴权密钥。用于需要鉴权才能访问的接口
+  key: 'literature', // 鉴权密钥。用于需要鉴权才能访问的接口
 };
 
 // 数据库配置 (注意：除数据库连接池大小外，以下配置项提及的内容需在安装前准备好并填入)
 const databaseConfig = {
-  host: "127.0.0.1", // 数据库链接地址
-  port: "3306", // 数据库连接端口
-  database: "bing", // 数据库名
-  user: "bing", // 数据库用户名
-  password: "bing", // 数据库密码
+  host: "mysql-literature.aivencloud.com", // 数据库链接地址
+  port: "27311", // 数据库连接端口
+  database: "bing_serve", // 数据库名
+  user: "avnadmin", // 数据库用户名
+  password: "AVNS_JBVL9zAmJBlqHSGZETf", // 数据库密码
   connectionLimit: 100, // 数据库连接池大小
 };
 
@@ -24,12 +24,12 @@ const databaseConfig = {
 const infoConfig = {
   link: [
     {
-      label: "白馬空谷的主页", // 链接名称
-      url: "https://www.mcloc.cn/" // 链接地址
+      label: "Literature的主页", // 链接名称
+      url: "https://ioku.net/" // 链接地址
     },
     {
-      label: "白馬空谷的博客",
-      url: "https://blog.mcloc.cn/"
+      label: "Api在线服务",
+      url: "https://api.vder.cn/"
     }
   ],
   htmlSlot: {
