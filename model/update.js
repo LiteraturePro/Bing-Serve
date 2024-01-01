@@ -29,6 +29,28 @@ const { eventBus } = require("./eventBus"); // 事件总线
 // 第三方模块
 const dayjs = require("dayjs");
 
+const fs = require('fs');
+const path = require('path');
+const { 
+  S3Client,
+  ListBucketsCommand,
+  ListObjectsV2Command,
+  GetObjectCommand,
+  PutObjectCommand
+} = require("@aws-sdk/client-s3");
+
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+
+
+const S3 = new S3Client({
+  region: "auto",
+  endpoint: `https://e680e4488fdd6d1b8c827cba29dc3410.r2.cloudflarestorage.com`,
+  credentials: {
+    accessKeyId: '53d739971d303ddc199d8b60aed08d6b',
+    secretAccessKey: 'afca119a42b5219ecd7b7b9f5ebafada303a6c1a7fb7d0b877c4b0469fa1eb3a',
+  },
+});
+
 // 错误收集器
 let errorList = []; // 错误列表
 let retryTime = 0; // 重试次数
@@ -49,6 +71,7 @@ const processImage = function (saveDir) {
 
 // 新增/更新
 const updateBing = async function () {
+
   const saveDir = `${dir}/${dayjs().format("YYYY")}/${dayjs().format(
     "MM"
   )}/${dayjs().format("DD")}`;
@@ -73,6 +96,18 @@ const updateBing = async function () {
   );
   // 处理图片
   processImage(saveDir);
+
+  // 同步目录到 S3
+  syncDirectoryToS3(saveDir, `BingCdn/${dayjs().format("YYYY")}/${dayjs().format(
+    "MM"
+  )}/${dayjs().format("DD")}`)
+    .then(() => {
+      console.log('同步S3完成啦!');
+    })
+    .catch((error) => {
+      console.error('同步S3失败咯', error);
+  });
+
   // 变量准备
   const mainColor = await getImageMainColor(saveDir);
   const imageBase64 = await getImageBase64(saveDir, {
@@ -80,7 +115,7 @@ const updateBing = async function () {
     height: 9,
     quality: 90,
   });
-  const baseImgUrl = `/${static}/${dayjs().format("YYYY")}/${dayjs().format("MM")}/${dayjs().format("DD")}/${dayjs().format("YYYY-MM-DD")}`;
+  const baseImgUrl = `https://jscdn.cachefly.net/BingCdn/${dayjs().format("YYYY")}/${dayjs().format("MM")}/${dayjs().format("DD")}/${dayjs().format("YYYY-MM-DD")}`;
   const urlObj = {
     hd: `${baseImgUrl}_hd.jpg`,
     uhd: `${baseImgUrl}_uhd.jpg`,
@@ -129,6 +164,47 @@ const updateBing = async function () {
   }
 };
 
+// 递归遍历本地目录并上传文件
+async function syncDirectoryToS3(localPath, s3Path) {
+  console.log(
+    await S3.send(
+      new ListBucketsCommand('')
+    )
+  );
+  // console.log(
+  //   await S3.send(
+  //     new ListObjectsV2Command({ Bucket: 'oss' })
+  //   )
+  // );
+
+  const files = fs.readdirSync(localPath);
+
+  for (const file of files) {
+    const filePath = path.join(localPath, file);
+    const s3Key = path.join(s3Path, file);
+
+    if (fs.statSync(filePath).isDirectory()) {
+      await syncDirectoryToS3(filePath, s3Key);
+    } else {
+      try {
+        const fileStream = fs.createReadStream(filePath);
+        const uploadParams = {
+          Bucket: 'oss',
+          Key: s3Key,
+          Body: fileStream
+        };
+
+        const response = await S3.send(new PutObjectCommand(uploadParams));
+        console.log('图像上传成功:', response);
+
+      } catch (error) {
+        console.error('图像上传失败:', error);
+      }
+    }
+  }
+};
+
+
 const retry = () => {
   if (retryTime >= 10) {
     retryTime = 0;
@@ -145,3 +221,4 @@ const retry = () => {
 
 // run
 updateBing();
+

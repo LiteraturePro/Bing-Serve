@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/androidmumo/bing-serve#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.484.0",
+    "@aws-sdk/s3-request-presigner": "^3.484.0",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "cron": "^1.8.2",
@@ -28,6 +30,7 @@
     "jimp": "^0.16.1",
     "log4js": "^6.3.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.6.5",
     "node-vibrant": "^3.2.1-alpha.1"
   }
 }

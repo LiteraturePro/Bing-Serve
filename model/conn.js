@@ -9,9 +9,27 @@ const { logger } = require("./log4js"); // 日志模块
 
 // 导入第三方模块
 const mysql = require("mysql");
+//const mysql2 = require('mysql2');
 
 // 创建一个数据库连接池
 let pool = mysql.createPool(databaseConfig);
+
+// 创建数据库连接配置
+//const pool = mysql2.createPool('mysql://avnadmin:AVNS_JBVL9zAmJBlqHSGZETf@mysql-literature.aivencloud.com:27311/defaultdb?ssl-mode=REQUIRED');
+
+// 建立数据库连接
+// pool.connect(function(err) {
+//   if (err) {
+//     console.error('66666连接失败：', err);
+//     return;
+//   }
+//   console.log('666666成功连接到数据库');
+
+//   // 在此处执行数据库操作
+
+//   // 关闭数据库连接
+//   connection.end();
+// });
 
 //定义创建数据库链接函数
 const operateDb = function (sql, sqlParams) {
