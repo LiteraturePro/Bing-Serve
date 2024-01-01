@@ -6,7 +6,7 @@ processes = []
 
 
 [build]
-  dockerfile = "Dockerfile.test"
+  dockerfile = "Dockerfile"
 
 [[vm]]
   cpu_kind = "shared"
