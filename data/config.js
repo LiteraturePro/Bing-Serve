@@ -34,10 +34,10 @@ const infoConfig = {
   ],
   htmlSlot: {
     beforeFooter: ``, // 页脚上方HTML插槽
-    afterFooter: `<a style="margin-right: 10px;" target="_blank" href="https://beian.miit.gov.cn/">晋ICP备20001086号-1</a>
-  <a style="margin-right: 10px; display: flex; align-items: center;" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41080202000141">
+    afterFooter: `<a style="margin-right: 10px;" target="_blank" href="">球ICP备00000001号</a>
+  <a style="margin-right: 10px; display: flex; align-items: center;" target="_blank" href="">
     <img style="width: 14px; margin-right: 6px;" src="https://www.mcloc.cn/wp-content/uploads/2020/04/beiantubiao-19.png"/>
-    <span>豫公网安备 41080202000141号</span>
+    <span>银河系备 000000000001号</span>
   </a>` // 页脚下方HTML插槽
   }
 }
