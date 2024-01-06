@@ -128,5 +128,6 @@ app.get(`/${GET_WEBINFO}`, getWebInfo); // 获取网站信息
 
 // 开始监听
 app.listen(port, () => {
+  
   logger.info(`app listening at http://localhost:${port}`);
 });
