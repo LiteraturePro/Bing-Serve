@@ -1,7 +1,7 @@
 # 编译前端
 FROM node:18 as builder
 WORKDIR /usr/src/app
-RUN git https://github.com/LiteraturePro/Bing-Front.git
+RUN git clone https://github.com/LiteraturePro/Bing-Front.git
 RUN cd Bing-Front && npm install pnpm -g && pnpm install  && pnpm build
 
 # 编译后端
